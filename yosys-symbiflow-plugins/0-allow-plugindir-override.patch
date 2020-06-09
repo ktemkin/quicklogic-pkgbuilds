@@ -1,0 +1,52 @@
+diff --git a/Makefile b/Makefile
+index 8f5441f..812077a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -11,7 +11,7 @@ $(1).so:
+ 	$$(MAKE) -C $(1)-plugin $$@
+ 
+ install_$(1):
+-	$$(MAKE) -C $(1)-plugin install
++	$$(MAKE) -C $(1)-plugin install PLUGINS_DIR=$(PLUGINS_DIR)
+ 
+ clean_$(1):
+ 	$$(MAKE) -C $(1)-plugin clean
+diff --git a/fasm-plugin/Makefile b/fasm-plugin/Makefile
+index 8c1a158..d5cfd59 100644
+--- a/fasm-plugin/Makefile
++++ b/fasm-plugin/Makefile
+@@ -2,7 +2,7 @@ CXX = $(shell yosys-config --cxx)
+ CXXFLAGS = $(shell yosys-config --cxxflags)
+ LDFLAGS = $(shell yosys-config --ldflags)
+ LDLIBS = $(shell yosys-config --ldlibs)
+-PLUGINS_DIR = $(shell yosys-config --datdir)/plugins
++PLUGINS_DIR ?= $(shell yosys-config --datdir)/plugins
+ 
+ OBJS = fasm.o
+ 
+diff --git a/ql-iob-plugin/Makefile b/ql-iob-plugin/Makefile
+index 446dfc7..74183bb 100644
+--- a/ql-iob-plugin/Makefile
++++ b/ql-iob-plugin/Makefile
+@@ -2,7 +2,7 @@ CXX = $(shell yosys-config --cxx)
+ CXXFLAGS = $(shell yosys-config --cxxflags)
+ LDFLAGS = $(shell yosys-config --ldflags)
+ LDLIBS = $(shell yosys-config --ldlibs)
+-PLUGINS_DIR = $(shell yosys-config --datdir)/plugins
++PLUGINS_DIR ?= $(shell yosys-config --datdir)/plugins
+ 
+ NAME = ql-iob
+ OBJS = $(NAME).o pcf_parser.cc pinmap_parser.cc
+diff --git a/xdc-plugin/Makefile b/xdc-plugin/Makefile
+index e752504..3adcd12 100644
+--- a/xdc-plugin/Makefile
++++ b/xdc-plugin/Makefile
+@@ -2,7 +2,7 @@ CXX = $(shell yosys-config --cxx)
+ CXXFLAGS = $(shell yosys-config --cxxflags)
+ LDFLAGS = $(shell yosys-config --ldflags)
+ LDLIBS = $(shell yosys-config --ldlibs)
+-PLUGINS_DIR = $(shell yosys-config --datdir)/plugins
++PLUGINS_DIR ?= $(shell yosys-config --datdir)/plugins
+ 
+ OBJS = xdc.o
+ VERILOG_MODULES = BANK.v

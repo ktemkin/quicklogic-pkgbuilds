@@ -1,0 +1,36 @@
+# Maintainer:  Kate Temkin  <kate@ktemkin.com>
+
+pkgname=yosys-symbiflow-plugins
+pkgrel=1
+pkgver=1.1.0
+pkgdesc='SymbiFlow plugins for the yosys synthesis suite'
+arch=('x86_64' 'i686')
+url='https://github.com/QuickLogic-Corp/yosys-symbiflow-plugins'
+license=('custom:ISC')
+depends=('yosys')
+makedepends=('git')
+source=(
+    'git+https://github.com/QuickLogic-Corp/yosys-symbiflow-plugins.git#commit=8a57843'
+    '0-allow-plugindir-override.patch'
+)
+sha512sums=('SKIP'
+            '3b580a1b9c9c9f90c4d4552d02f64eccf85e72704f9df2db2d46f3e36d7134c79cecfc72909285e0948b35bef1a8b06ed52b300938195ad250622e61152f1385')
+
+prepare() {
+    cd "${srcdir}/yosys-symbiflow-plugins"
+    patch -p1 < ../0-allow-plugindir-override.patch
+}
+
+build() {
+    cd "${srcdir}/yosys-symbiflow-plugins"
+    make PREFIX="/usr" plugins
+}
+
+
+package() {
+    cd "${srcdir}/yosys-symbiflow-plugins"
+
+    # disable stripping in the makefile - duplicated effort and makes debug packages impossible
+    make STRIP=':' PREFIX="/usr" PYTHON_PREFIX="${pkgdir}/usr" DESTDIR="${pkgdir}" PLUGINS_DIR="${pkgdir}/usr/share/yosys/plugins" install
+    install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}

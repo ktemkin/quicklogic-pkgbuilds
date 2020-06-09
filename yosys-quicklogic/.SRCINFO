@@ -1,0 +1,28 @@
+pkgbase = yosys-git
+	pkgdesc = A framework for RTL synthesis
+	pkgver = r8895.af84e5ac
+	pkgrel = 1
+	url = http://www.clifford.at/yosys/
+	arch = x86_64
+	arch = i686
+	license = custom:ISC
+	checkdepends = iverilog
+	checkdepends = clang
+	makedepends = git
+	makedepends = mercurial
+	makedepends = boost
+	depends = tcl
+	depends = libffi
+	depends = python
+	depends = boost-libs
+	optdepends = graphviz: Schematics display support
+	optdepends = xdot: Design netlist display support
+	provides = yosys
+	conflicts = yosys
+	source = git+https://github.com/cliffordwolf/yosys.git
+	source = git+https://github.com/berkeley-abc/abc.git
+	sha512sums = SKIP
+	sha512sums = SKIP
+
+pkgname = yosys-git
+
