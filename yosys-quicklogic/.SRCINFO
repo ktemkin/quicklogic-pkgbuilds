@@ -1,6 +1,6 @@
-pkgbase = yosys-git
+pkgbase = yosys-quicklogic
 	pkgdesc = A framework for RTL synthesis
-	pkgver = r8895.af84e5ac
+	pkgver = 0.6.0
 	pkgrel = 1
 	url = http://www.clifford.at/yosys/
 	arch = x86_64
@@ -9,7 +9,6 @@ pkgbase = yosys-git
 	checkdepends = iverilog
 	checkdepends = clang
 	makedepends = git
-	makedepends = mercurial
 	makedepends = boost
 	depends = tcl
 	depends = libffi
@@ -19,10 +18,10 @@ pkgbase = yosys-git
 	optdepends = xdot: Design netlist display support
 	provides = yosys
 	conflicts = yosys
-	source = git+https://github.com/cliffordwolf/yosys.git
-	source = git+https://github.com/berkeley-abc/abc.git
+	source = git+https://github.com/QuickLogic-Corp/yosys.git#tag=yosys-0.6.0
+	source = git+https://github.com/berkeley-abc/abc#commit=ed90ce2
 	sha512sums = SKIP
 	sha512sums = SKIP
 
-pkgname = yosys-git
+pkgname = yosys-quicklogic
 

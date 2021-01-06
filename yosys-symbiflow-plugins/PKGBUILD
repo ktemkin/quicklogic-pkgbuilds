@@ -2,15 +2,15 @@
 
 pkgname=yosys-symbiflow-plugins
 pkgrel=1
-pkgver=1.1.0
+pkgver=1.2.0
 pkgdesc='SymbiFlow plugins for the yosys synthesis suite'
 arch=('x86_64' 'i686')
 url='https://github.com/QuickLogic-Corp/yosys-symbiflow-plugins'
 license=('custom:ISC')
-depends=('yosys')
+depends=('yosys-quicklogic')
 makedepends=('git')
 source=(
-    'git+https://github.com/QuickLogic-Corp/yosys-symbiflow-plugins.git#commit=8a57843'
+    "git+https://github.com/QuickLogic-Corp/yosys-symbiflow-plugins.git#tag=v${pkgver}"
     '0-allow-plugindir-override.patch'
 )
 sha512sums=('SKIP'
