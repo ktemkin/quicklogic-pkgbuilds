@@ -7,23 +7,25 @@
 
 pkgname=yosys-quicklogic
 pkgrel=1
-pkgver=r9024.baa110bb
+pkgver=0.6.0
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64' 'i686')
 url='http://www.clifford.at/yosys/'
 license=('custom:ISC')
-provides=("yosys")
-conflicts=("yosys")
-depends=('tcl' 'libffi' 'python' 'boost-libs')
-optdepends=('graphviz: Schematics display support' 'xdot: Design netlist display support')
-makedepends=('git' 'mercurial' 'boost')
-checkdepends=('iverilog' 'clang')
-source=('git+https://github.com/QuickLogic-Corp/yosys.git#tag=yosys-0.6.0')
-sha512sums=('SKIP')
+depends=(tcl libffi python boost-libs)
+optdepends=('graphviz: Schematics display support'
+            'xdot: Design netlist display support')
+makedepends=(git boost)
+checkdepends=(iverilog clang)
+provides=(yosys)
+conflicts=(yosys)
+source=("git+https://github.com/QuickLogic-Corp/yosys.git#tag=yosys-${pkgver}"
+        "git+https://github.com/berkeley-abc/abc#commit=ed90ce2")
+sha512sums=('SKIP'
+            'SKIP')
 
-pkgver() {
-    cd "${srcdir}/yosys"
-    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+prepare() {
+    cp -r abc "${srcdir}/yosys/abc"
 }
 
 build() {
@@ -32,10 +34,16 @@ build() {
     make config-gcc
     echo "ENABLE_LIBYOSYS=1" >> Makefile.conf
     echo "ENABLE_PYOSYS=1" >> Makefile.conf
+    echo "ABCREV=default" >> Makefile.conf
 
     make PREFIX="/usr"
 }
 
+check() {
+    cd "${srcdir}/yosys"
+
+    make test
+}
 
 package() {
     cd "${srcdir}/yosys"
